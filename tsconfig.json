@@ -1,0 +1,60 @@
+{
+  "ts-node": {
+    "require": ["tsconfig-paths/register"] 
+    // Enables path alias resolution in ts-node runtime.
+  },
+  "compilerOptions": {
+    "lib": ["ES2021"],  
+    // Specifies modern JavaScript features and better performance.
+    
+    "target": "ES2021",  
+    // Compiles TypeScript to ES2021 for modern features and performance.
+
+    "module": "commonjs",  
+    // Required for Node.js compatibility (Node uses CommonJS modules).
+
+    "moduleResolution": "node",  
+    // Improved module resolution for ESM support with Node 16+.
+
+    "emitDecoratorMetadata": true,  
+    // Required for TypeORM and other decorator-based libraries.
+
+    "experimentalDecorators": true,  
+    // Enables support for decorators in libraries like TypeORM and class-validator.
+
+    "esModuleInterop": true,  
+    // Ensures compatibility with both CommonJS and ES module imports/exports.
+
+    "sourceMap": false,  
+    // Disables source maps in production to avoid exposing source code.
+
+    "noImplicitAny": true,  
+    // Enforces strict typing by preventing implicit "any" types.
+
+    "noImplicitReturns": true,  
+    // Ensures that all functions explicitly return a value.
+
+    "rootDir": ".",  
+    // Specifies the source directory for better build structure.
+
+    "outDir": "./build",  
+    // Defines the output directory for compiled JavaScript files.
+
+    "baseUrl": ".",  
+    // Allows for absolute imports from the project root.
+
+    "paths": {  
+      "@entity": ["./src/entity/index.ts"],  
+      "@interfaces": ["./src/interfaces/index.ts"],  
+      "@middlewares/*": ["./src/middlewares/*"],  
+      "@routes": ["./src/routes/index.ts"],  
+      "@controllers/*": ["./src/controllers/*"],  
+      "@utils": ["./src/utils/index.ts"],  
+      "@services": ["./src/services/index.ts"],  
+      "@config": ["./src/bootstrap/config.ts"],
+      "@enum": ["./src/enums/index.ts"] 
+    }
+  },
+  "exclude": ["node_modules", "build", "**/*.test.ts"]  
+  // Excludes unnecessary files for faster compilation and cleaner builds.
+}
