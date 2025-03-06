@@ -1,12 +1,13 @@
-import { DataSource } from 'typeorm';
-import config from './config';
+import { DataSource } from "typeorm";
+import config from "./config";
+import Entities from "@entity";
 
 const AppDataSource = new DataSource({
-  type: 'postgres',
+  type: "postgres",
   url: config.DATABASE_URL,
-  synchronize: false,
+  synchronize: true,
   logging: false,
-  entities: [],
+  entities: [...Object.values(Entities)],
 });
 
 export default AppDataSource;
