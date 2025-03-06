@@ -51,8 +51,8 @@
       "@controllers/*": ["./src/controllers/*"],  
       "@utils": ["./src/utils/index.ts"],  
       "@services": ["./src/services/index.ts"],  
-      "@config": ["./src/bootstrap/config.ts"],
-      "@enum": ["./src/enums/index.ts"] 
+      "@bootstrap/*": ["./src/bootstrap/*"],
+      "@constants/*": ["./src/constants/*"],
     }
   },
   "exclude": ["node_modules", "build", "**/*.test.ts"]  
