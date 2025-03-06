@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import authRoutes from "./auth";
+import postRoutes from "./post";
 import { ensureAuthenticated } from "@middlewares/auth";
 
 const {
@@ -17,6 +18,7 @@ const baseRouter = () => {
   const router = Router();
 
   router.use("/auth", authRoutes);
+  router.use("/post", postRoutes);
 
   // Home Page
   router.get("/", (req, res) => {
