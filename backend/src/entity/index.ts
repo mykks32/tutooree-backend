@@ -1,9 +1,12 @@
+import TuitionPost from "./post";
 import User from "./user";
 
 export default { 
-    User
+    User,
+    TuitionPost
  };
 
 export {
-    User
+    User,
+    TuitionPost
 };

@@ -4,23 +4,23 @@ import IUser from 'src/interfaces/IUser';
 @Entity('users')
 export default class User extends BaseEntity implements IUser {
     @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
 
     @Column({ nullable: true })
-    name: string;
+    name!: string;
 
     @Column({ unique: true })
-    email: string;
+    email!: string;
 
     @Column({ nullable: true })
-    profilePicture: string;
+    profilePicture!: string;
 
     @Column()
-    googleId: string;
+    googleId!: string;
 
     @CreateDateColumn()
-    created_at: Date;
+    created_at!: Date;
 
     @UpdateDateColumn()
-    updated_at: Date;
+    updated_at?: Date;
 }
