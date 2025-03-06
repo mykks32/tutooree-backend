@@ -1,3 +1,9 @@
-export default {};
+import User from "./user";
 
-export {};
+export default { 
+    User
+ };
+
+export {
+    User
+};

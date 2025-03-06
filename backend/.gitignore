@@ -36,3 +36,7 @@ yarn.lock
 # Misc
 .nyc_output/
 .eslintcache
+
+#view for development only
+/src/views
+google-response.txt
