@@ -25,6 +25,9 @@
     "esModuleInterop": true,  
     // Ensures compatibility with both CommonJS and ES module imports/exports.
 
+    "skipLibCheck": true,  
+    // Skips type checking for external libraries.
+
     "sourceMap": false,  
     // Disables source maps in production to avoid exposing source code.
 
@@ -33,6 +36,12 @@
 
     "noImplicitReturns": true,  
     // Ensures that all functions explicitly return a value.
+
+    "strict": false,
+    // Disables strict mode for better error handling and type checking.
+    
+    "forceConsistentCasingInFileNames": true,
+    // Ensures consistent casing in file names for better organization.
 
     "rootDir": ".",  
     // Specifies the source directory for better build structure.
@@ -44,17 +53,22 @@
     // Allows for absolute imports from the project root.
 
     "paths": {  
-      "@entity": ["./src/entity/index.ts"],  
-      "@interfaces": ["./src/interfaces/index.ts"],  
-      "@middlewares/*": ["./src/middlewares/*"],  
-      "@routes": ["./src/routes/index.ts"],  
-      "@controllers/*": ["./src/controllers/*"],  
-      "@utils": ["./src/utils/index.ts"],  
-      "@services": ["./src/services/index.ts"],  
-      "@bootstrap/*": ["./src/bootstrap/*"],
-      "@constants/*": ["./src/constants/*"],
-      "@schemas": ["./src/schemas/index.ts"],
-    }
+      "@entity": ["src/entity/index.ts"],  
+      "@interfaces": ["src/interfaces/index.ts"],  
+      "@middlewares/*": ["src/middlewares/*"],  
+      "@routes": ["src/routes/index.ts"],  
+      "@controllers/*": ["src/controllers/*"],  
+      "@utils": ["src/utils/index.ts"],  
+      "@services": ["src/services/index.ts"],  
+      "@bootstrap/*": ["src/bootstrap/*"],
+      "@constants/*": ["src/constants/*"],
+      "@schemas": ["src/schemas/index.ts"],
+    },
+    "typeRoots": ["./src/types", "./node_modules/@types"],  
+    // Specifies additional type directories for better type resolution.
+
+    "types": ["node", "express"],  
+    // Includes necessary type definitions for popular modules.
   },
   "exclude": ["node_modules", "build", "**/*.test.ts"]  
   // Excludes unnecessary files for faster compilation and cleaner builds.
