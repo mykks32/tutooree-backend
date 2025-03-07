@@ -41,7 +41,7 @@ export const createTuitionPost = async (req: Request, res: Response) => {
     // Get current user ID from the request
     const userId = (req.user as IUser)?.id;
     if (!userId) {
-      res.status(UNAUTHORIZED).json({
+      return res.status(UNAUTHORIZED).json({
         error: "User must be authenticated to create a tuition post",
       });
     }
@@ -56,7 +56,7 @@ export const createTuitionPost = async (req: Request, res: Response) => {
     await queryRunner.manager.save(tuitionPost);
     await queryRunner.commitTransaction();
 
-    res.status(CREATED).json({
+    return res.status(CREATED).json({
       message: "Tuition post created successfully",
       data: tuitionPost,
     });
@@ -64,13 +64,13 @@ export const createTuitionPost = async (req: Request, res: Response) => {
     await queryRunner.rollbackTransaction();
 
     if (error instanceof ZodError) {
-      res.status(BAD_REQUEST).json({
+      return res.status(BAD_REQUEST).json({
         error: "Validation failed",
         details: error.errors,
       });
     }
 
-    res.status(INTERNAL_SERVER_ERROR).json({
+    return res.status(INTERNAL_SERVER_ERROR).json({
       error: `An unexpected error occurred: ${error.message}`,
     });
   } finally {
@@ -155,7 +155,7 @@ export const getAllTuitionPosts = async (req: Request, res: Response) => {
 
     const tuitionPosts = await query.getMany();
 
-    res.status(OK).json({
+    return res.status(OK).json({
       message: "Tuition posts retrieved successfully",
       data: tuitionPosts,
       meta: {
@@ -166,13 +166,13 @@ export const getAllTuitionPosts = async (req: Request, res: Response) => {
     });
   } catch (error) {
     if (error instanceof ZodError) {
-      res.status(BAD_REQUEST).json({
+      return res.status(BAD_REQUEST).json({
         error: "Validation failed",
         details: error.errors,
       });
     }
 
-    res.status(INTERNAL_SERVER_ERROR).json({
+    return res.status(INTERNAL_SERVER_ERROR).json({
       error: `An unexpected error occurred: ${error.message}`,
     });
   }
@@ -192,17 +192,17 @@ export const getTuitionPostById = async (req: Request, res: Response) => {
       .getOne();
 
     if (!tuitionPost) {
-      res.status(NOT_FOUND).json({
+      return res.status(NOT_FOUND).json({
         error: "Tuition post not found",
       });
     }
 
-    res.status(OK).json({
+    return res.status(OK).json({
       message: "Tuition post retrieved successfully",
       data: tuitionPost,
     });
   } catch (error) {
-    res.status(INTERNAL_SERVER_ERROR).json({
+    return res.status(INTERNAL_SERVER_ERROR).json({
       error: `An unexpected error occurred: ${error.message}`,
     });
   }
@@ -222,10 +222,9 @@ export const updateTuitionPost = async (req: Request, res: Response) => {
     // Get current user ID from the request
     const userId = (req.user as IUser)?.id;
     if (!userId) {
-      res.status(UNAUTHORIZED).json({
+      return res.status(UNAUTHORIZED).json({
         error: "User must be authenticated to update a tuition post",
       });
-      return;
     }
 
     const tuitionPost = await queryRunner.manager.findOne(TuitionPost, {
@@ -234,14 +233,14 @@ export const updateTuitionPost = async (req: Request, res: Response) => {
     });
 
     if (tuitionPost.posted_by.id !== userId) {
-      res.status(UNAUTHORIZED).json({
+      return res.status(UNAUTHORIZED).json({
         error: "You are not authorized to update this tuition post",
       });
     }
 
     // Check if the user is the owner of the post
     if (tuitionPost.posted_by.id !== userId) {
-      res.status(UNAUTHORIZED).json({
+      return res.status(UNAUTHORIZED).json({
         error: "You are not authorized to update this tuition post",
       });
     }
@@ -256,7 +255,7 @@ export const updateTuitionPost = async (req: Request, res: Response) => {
     await queryRunner.manager.save(tuitionPost);
     await queryRunner.commitTransaction();
 
-    res.status(OK).json({
+    return res.status(OK).json({
       message: "Tuition post updated successfully",
       data: tuitionPost,
     });
@@ -264,13 +263,13 @@ export const updateTuitionPost = async (req: Request, res: Response) => {
     await queryRunner.rollbackTransaction();
 
     if (error instanceof ZodError) {
-      res.status(BAD_REQUEST).json({
+      return res.status(BAD_REQUEST).json({
         error: "Validation failed",
         details: error.errors,
       });
     }
 
-    res.status(INTERNAL_SERVER_ERROR).json({
+    return res.status(INTERNAL_SERVER_ERROR).json({
       error: `An unexpected error occurred: ${error.message}`,
     });
   } finally {
@@ -292,7 +291,7 @@ export const deleteTuitionPost = async (req: Request, res: Response) => {
     // Get current user ID from the request
     const userId = (req.user as IUser)?.id;
     if (!userId) {
-      res.status(UNAUTHORIZED).json({
+      return res.status(UNAUTHORIZED).json({
         error: "User must be authenticated to delete a tuition post",
       });
     }
@@ -303,14 +302,14 @@ export const deleteTuitionPost = async (req: Request, res: Response) => {
     });
 
     if (!tuitionPost) {
-      res.status(NOT_FOUND).json({
+      return res.status(NOT_FOUND).json({
         error: "Tuition post not found",
       });
     }
 
     // Check if the user is the owner of the post
     if (tuitionPost.posted_by.id !== userId) {
-      res.status(UNAUTHORIZED).json({
+      return res.status(UNAUTHORIZED).json({
         error: "You are not authorized to delete this tuition post",
       });
     }
@@ -318,13 +317,13 @@ export const deleteTuitionPost = async (req: Request, res: Response) => {
     await queryRunner.manager.remove(tuitionPost);
     await queryRunner.commitTransaction();
 
-    res.status(OK).json({
+    return res.status(OK).json({
       message: "Tuition post deleted successfully",
     });
   } catch (error) {
     await queryRunner.rollbackTransaction();
 
-    res.status(INTERNAL_SERVER_ERROR).json({
+    return res.status(INTERNAL_SERVER_ERROR).json({
       error: `An unexpected error occurred: ${error.message}`,
     });
   } finally {

@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import authRoutes from "./auth";
 import postRoutes from "./post";
+import applicationRoutes from "./application"
 import { ensureAuthenticated } from "@middlewares/auth";
 
 const {
@@ -19,6 +20,7 @@ const baseRouter = () => {
 
   router.use("/auth", authRoutes);
   router.use("/post", postRoutes);
+  router.use("/application", applicationRoutes);
 
   // Home Page
   router.get("/", (req, res) => {
