@@ -1,12 +1,15 @@
 import TuitionPost from "./post";
 import User from "./user";
+import TuitionApplication from "./application";
 
 export default { 
     User,
-    TuitionPost
+    TuitionPost,
+    TuitionApplication
  };
 
 export {
     User,
-    TuitionPost
+    TuitionPost,
+    TuitionApplication
 };
